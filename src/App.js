@@ -15,13 +15,14 @@ import Registeration from './Registration'
 import LoadingScreen from './LoadingScreen'
 import { iconURL } from './helpers/settings'
 import useApiList from './helpers/useApiList'
+import JoblyApi from './helpers/JoblyApi'
+import UserContext from './helpers/UserContext'
 import LoadingContext from './helpers/LoadingContext'
-import UserTokenContext from './helpers/UserTokenContext'
 
 
 function App() {
 
-  const [ userToken, setUserToken ] = useState({})
+  const [ user, setUser ] = useState({})
   const [ jobs, updateJobs ] = useApiList("jobs")
   const [ companies, updateCompanies ] = useApiList("companies")
   const [ isLoading, setIsLoading ] = useState(true)
@@ -47,8 +48,8 @@ function App() {
   return (
     <div className="App">
       <LoadingContext.Provider value={setIsLoading}>
-        <UserTokenContext.Provider value={userToken}>
-          <NavBar setUserToken={setUserToken}/>
+        <UserContext.Provider value={user}>
+          <NavBar setUser={setUser}/>
           <main>
 
             <Switch>
@@ -71,14 +72,14 @@ function App() {
                 {
                   userToken.payload ?
                     <Redirect to="/" /> :
-                    <LogIn login={setUserToken}/>
+                    <LogIn login={setUser}/>
                 }
               </Route>
               <Route exact path="/register">
                 {
                   userToken.payload ?
                     <Redirect to="/" /> :
-                    <Registeration login={setUserToken}/>
+                    <Registeration login={setUser}/>
                 }
               </Route>
               <Route>
@@ -86,7 +87,7 @@ function App() {
               </Route>
             </Switch>
           </main>
-        </UserTokenContext.Provider>
+        </UserContext.Provider>
       </LoadingContext.Provider>
     </div>
   );

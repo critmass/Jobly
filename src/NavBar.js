@@ -2,56 +2,59 @@ import React, { useContext } from "react";
 import "./NavBar.css";
 import { NavLink } from "react-router-dom";
 import { Navbar, NavItem, Nav } from "reactstrap";
-import UserTokenContext from "./helpers/UserTokenContext";
+import UserContext from "./helpers/UserContext";
 import LoadingContext from "./helpers/LoadingContext";
+import { iconURL } from "./helpers/settings";
 
-function NavBar({setUserToken}) {
+function NavBar({setUser}) {
 
-    const userToken = useContext( UserTokenContext )
+    const {user} = useContext( UserContext )
 
     const Logout = () => {
 
         const update = useContext( LoadingContext )
-        setUserToken({})
+        setUser({})
         update(true)
     }
 
     return (
         <div>
             <Navbar expand="md" >
-                <NavLink exact to="/" className="navbar-brand">
-                    Jobly
+                <NavLink exact to="/" className="NavBar-brand NavBar-link navbar-brand">
+                    <span className="mx-4">
+                        Jobly <img src={iconURL} className="NavBar-img"/>
+                    </span>
                 </NavLink>
-                <Nav className="ml-auto" navbar>
-                    { userToken.payload ?
+                <Nav className="position-absolute end-0" navbar>
+                    { user.username ?
                         (<>
                             <NavItem>
-                                <NavLink exact to="/companies" class="nav-link">
+                                <NavLink exact to="/companies" className="NavBar-link ">
                                     Companies
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink exact to="/jobs">
+                                <NavLink exact to="/jobs" className="NavBar-link">
                                     Jobs
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink exact to="/user">
+                                <NavLink exact to="/user" className="NavBar-link">
                                     Profile
                                 </NavLink>
                             </NavItem>
                             <NavItem onClick={ Logout }>
-                                Logout {userToken.payload.username}
+                                Logout {user.username}
                             </NavItem >
                         </>) :
                         (<>
                             <NavItem className="mr-4">
-                                <NavLink exact to="/login" class="nav-link">
+                                <NavLink exact to="/login" className="NavBar-link mx-2">
                                     Login
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink exact to="/register" class="nav-link">
+                                <NavLink exact to="/register" className="NavBar-link mx-2">
                                     Register
                                 </NavLink>
                             </NavItem>

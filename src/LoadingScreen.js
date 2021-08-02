@@ -1,7 +1,15 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 const LoadingScreen = () => {
-    return <p>Loading...</p>
+
+    const [ t, setT ] = useState(0)
+    useEffect(() =>{
+        const time = setInterval(() => {
+            setT( time => time + 1 )
+        }, 1200)
+        return () => clearInterval(time)
+    },[])
+    return <p>Loading{".".repeat(1+t%3)}</p>
 }
 
 export default LoadingScreen
