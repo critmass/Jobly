@@ -1,16 +1,15 @@
 import { useState } from "react"
-import JoblyApi from './JoblyApi'
+import JoblyApi from "./JoblyApi"
 
+const useApiList = (source) => {
 
-const useApiList = ( source ) => {
-
-    const [ state, setState ] = useState([])
-    async function updateState(){
+    const [state, setState] = useState([])
+    async function updateState() {
         let apiReturn = await JoblyApi.request(source)
-        setState( apiReturn[source] )
+        setState(apiReturn[source])
     }
 
-    return [ state, updateState ]
+    return [state, updateState]
 }
 
 export default useApiList

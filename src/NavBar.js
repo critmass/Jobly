@@ -1,21 +1,15 @@
 import React, { useContext } from "react";
-import "./NavBar.css";
 import { NavLink } from "react-router-dom";
 import { Navbar, NavItem, Nav } from "reactstrap";
-import UserContext from "./helpers/UserContext";
-import LoadingContext from "./helpers/LoadingContext";
+
+import "./NavBar.css";
 import { iconURL } from "./helpers/settings";
+import DataContext from "./helpers/DataContext";
 
-function NavBar({setUser}) {
 
-    const {user} = useContext( UserContext )
+function NavBar({logout}) {
 
-    const Logout = () => {
-
-        const update = useContext( LoadingContext )
-        setUser({})
-        update(true)
-    }
+    const {user} = useContext( DataContext )
 
     return (
         <div>
@@ -43,8 +37,10 @@ function NavBar({setUser}) {
                                     Profile
                                 </NavLink>
                             </NavItem>
-                            <NavItem onClick={ Logout }>
-                                Logout {user.username}
+                            <NavItem >
+                                <button onClick={logout}>
+                                    Logout {user.username}
+                                </button>
                             </NavItem >
                         </>) :
                         (<>

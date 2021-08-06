@@ -42,34 +42,60 @@ class JoblyApi {
     return res.company;
   }
 
-  static async getUser(id) {
-    let res = await this.request(`users/${id}`);
+  static async getUser(username) {
+    let res = await this.request(`users/${username}`);
     return res.user;
   }
 
-  static async applyToJob(userId, jobId) {
+  static async applyToJob(username, jobId) {
 
     let res = await this.request(
-      `users/${userId}/jobs/${jobId}`,
-      method = "post"
+      `users/${username}/jobs/${jobId}`,
+      {},
+      "post"
     )
 
     return res.applied === jobId
   }
 
   static async registerNewUser(data) {
-    let res = await this.request( 'auth/register', data, "post")
+    let res = await this.request( 'auth/register', data, "post" )
     this.token = res.token
     return await this.getUser(data.username)
   }
 
   static async login( username, password ) {
 
-    let res = await this.request( `auth/token`, { username, password }, "post" )
+    try{
+      let res = await this.request(
+        `auth/token`,
+        { username, password },
+        "post"
+      )
 
-    this.token  = res.token
+      this.token  = res.token
 
-    return await this.getUser(username)
+      return await this.getUser(username)
+    }
+    catch (err){
+      return err
+    }
+  }
+
+  static async updateUser(username, userUpdate) {
+    const result = await this.request(`users/${username}`, {...userUpdate}, "patch")
+    if( result.user ){
+      this.token = null
+    }
+    return result.user
+  }
+
+  static async deleteUser(username) {
+    const result = await this.request(`users/${username}`, {}, "delete")
+    if( result.deleted == username ){
+      this.token = null
+    }
+    return result
   }
 }
 
