@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import jwt from "jsonwebtoken"
 
 import './App.css';
 
@@ -9,12 +11,21 @@ import LoadingScreen from './LoadingScreen'
 import useApiList from './helpers/useApiList'
 import DataContext from './helpers/DataContext'
 import SetterContext from './helpers/SetterContext'
-import { useHistory } from 'react-router-dom';
+import useLocalStorageState from './useLocalStorageState';
 
 
 function App() {
 
-  const [ currentUser, setCurrentUser ] = useState({applications:[]})
+  const [ jwToken, setJwToken ] = useLocalStorageState("jwToken","")
+
+  useEffect(()=>{
+    JoblyApi.token = jwToken
+  },[jwToken])
+
+
+  const [ currentUsername, setCurrentUsername ] = useState(
+    jwt.decode(jwToken) ? jwt.decode(jwToken).username : ""
+  )
   const [ jobs, updateJobs ] = useApiList("jobs")
   const [ companies, updateCompanies ] = useApiList("companies")
   const [ isLoading, setIsLoading ] = useState(true)
@@ -23,7 +34,8 @@ function App() {
   const login = async (username, password) => {
     const userData = await JoblyApi.login(username,password)
     if(userData.username){
-      setCurrentUser(userData)
+      setCurrentUsername(userData.username)
+      setJwToken(()=>JoblyApi.token)
       setIsLoading(true)
       return true
     }
@@ -33,13 +45,9 @@ function App() {
   }
 
   const logout = () => {
-    setCurrentUser({jobs:[]})
+    setCurrentUsername("")
+    setJwToken("")
     history.push("/")
-  }
-
-  const updateUser = async (userUpdate) => {
-    const userData = await JoblyApi.updateUser(currentUser.username, userUpdate)
-    if(userData.username) setCurrentUser(userData)
   }
 
   useEffect(() => {
@@ -57,8 +65,8 @@ function App() {
 
   return (
     <div className="App">
-      <SetterContext.Provider value={{setIsLoading, updateUser, login}}>
-        <DataContext.Provider value={{currentUser, jobs, companies}}>
+      <SetterContext.Provider value={{setIsLoading, login}}>
+        <DataContext.Provider value={{currentUsername, jobs, companies}}>
           <NavBar logout={logout}/>
           <main>
             <Routes/>

@@ -16,7 +16,7 @@ const UserPage = () => {
         async function getUser() {
             const result = await JoblyApi.getUser(username)
             if(result.username) {
-                setUser(result)
+                setUser(() => result)
             }
             else {
                 return <Redirect to="/"/>

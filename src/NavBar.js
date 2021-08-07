@@ -9,7 +9,7 @@ import DataContext from "./helpers/DataContext";
 
 function NavBar({logout}) {
 
-    const {currentUser} = useContext( DataContext )
+    const {currentUsername} = useContext( DataContext )
 
     return (
         <div>
@@ -20,7 +20,7 @@ function NavBar({logout}) {
                     </span>
                 </NavLink>
                 <Nav className="position-absolute end-0" navbar>
-                    { currentUser.username ?
+                    { currentUsername ?
                         (<>
                             <NavItem>
                                 <NavLink exact to="/companies" className="NavBar-link ">
@@ -28,7 +28,7 @@ function NavBar({logout}) {
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink exact to="/jobs" className="NavBar-link">
+                                <NavLink exact to="/jobs" className="NavBar-link pd-1">
                                     Jobs
                                 </NavLink>
                             </NavItem>
@@ -38,8 +38,8 @@ function NavBar({logout}) {
                                 </NavLink>
                             </NavItem>
                             <NavItem >
-                                <Button onClick={logout}>
-                                    Logout {currentUser.username}
+                                <Button onClick={logout} className="NavBar-button">
+                                    Logout {currentUsername}
                                 </Button>
                             </NavItem >
                         </>) :

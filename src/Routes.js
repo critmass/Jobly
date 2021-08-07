@@ -13,7 +13,7 @@ import DataContext from './helpers/DataContext'
 
 
 const Routes = () => {
-    const {currentUser} = useContext(DataContext)
+    const {currentUsername} = useContext(DataContext)
     return (<Switch>
         <Route exact path="/">
             <Home />
@@ -28,21 +28,21 @@ const Routes = () => {
             <Company />
         </Route>
         <Route exact path="/user">
-            <Redirect to={`/user/${currentUser.username}`}/>
+            <Redirect to={`/user/${currentUsername}`}/>
         </Route>
         <Route path="/user/:username">
             <User/>
         </Route>
         <Route exact path="/login">
             {
-                currentUser.username ?
+                currentUsername ?
                     <Redirect to="/" /> :
                     <LogIn />
             }
         </Route>
         <Route exact path="/register">
             {
-                currentUser.username ?
+                currentUsername ?
                     <Redirect to="/" /> :
                     <Registration />
             }

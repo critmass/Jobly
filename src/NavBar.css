@@ -38,3 +38,13 @@ nav {
   height: 35px;
 }
 
+.NavBar-button {
+  background-color: red;
+  border-color: red;
+}
+
+.NavBar-button:hover {
+  background-color: red;
+  border-color: red;
+  font-weight: bold;
+}
