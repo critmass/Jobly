@@ -23,17 +23,17 @@ function NavBar({logout}) {
                     { currentUsername ?
                         (<>
                             <NavItem>
-                                <NavLink exact to="/companies" className="NavBar-link ">
+                                <NavLink exact to="/companies" className="NavBar-link m-2">
                                     Companies
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink exact to="/jobs" className="NavBar-link pd-1">
+                                <NavLink exact to="/jobs" className="NavBar-link m-2">
                                     Jobs
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink exact to="/user" className="NavBar-link">
+                                <NavLink exact to="/user" className="NavBar-link m-2">
                                     Profile
                                 </NavLink>
                             </NavItem>

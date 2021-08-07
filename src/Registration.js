@@ -1,6 +1,9 @@
-import React, { useState } from "react"
-import { Button } from "reactstrap"
+import React, { useContext, useState } from "react"
+import { useHistory } from "react-router-dom"
+import { Alert, Button } from "reactstrap"
+import JoblyApi from "./helpers/JoblyApi"
 import makeChangeHandler from "./helpers/makeChangeHandler"
+import SetterContext from "./helpers/SetterContext"
 import InputGroupBundle from "./InputGroupBundle"
 
 const Registration = () => {
@@ -12,13 +15,14 @@ const Registration = () => {
         lastName:"",
         email:""
     })
-    const [errors, setErrors] = useState([])
+    const history = useHistory()
 
     const handleChange = makeChangeHandler(setInputValues)
+    const {registerNewUser} = useContext(SetterContext)
 
-    const handleSubmit = e => {
-        e.preventDefault()
-
+    const handleSubmit = async () => {
+        registerNewUser(inputValues)
+        history.push("/")
     }
 
     return (<div>

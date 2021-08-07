@@ -8,7 +8,7 @@ import JobCard from "./JobCard"
 const UserPage = () => {
 
     const {username} = useParams()
-    const {currentUser} = useContext(DataContext)
+    // const {currentUsername} = useContext(DataContext)
 
     const [user, setUser] = useState({applications:[]})
 
@@ -32,14 +32,14 @@ const UserPage = () => {
         <h3 className="display-4">
             {user.username}
         </h3>
-        { currentUser.username == user.username ?
+        {/* { currentUsername == user.username ?
             (<Link to={`/user/update/${username}`}>
                 <Button>
                     Update
                 </Button>
             </Link>) :
             ""
-        }
+        } */}
         <div>
             {
                 user.applications.map( job => {

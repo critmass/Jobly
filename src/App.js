@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import jwt from "jsonwebtoken"
 
@@ -32,14 +32,27 @@ function App() {
   const history = useHistory()
 
   const login = async (username, password) => {
-    const userData = await JoblyApi.login(username,password)
-    if(userData.username){
-      setCurrentUsername(userData.username)
-      setJwToken(()=>JoblyApi.token)
+    const userToken = await JoblyApi.login(username,password)
+    if(userToken){
+      setCurrentUsername(jwt.decode(userToken).username)
+      setJwToken(()=>userToken)
       setIsLoading(true)
       return true
     }
     else{
+      return false
+    }
+  }
+
+  const registerNewUser = async values => {
+    const userToken = await JoblyApi.registerNewUser(values)
+    if (userToken) {
+      setCurrentUsername(jwt.decode(userToken).username)
+      setJwToken(() => userToken)
+      setIsLoading(true)
+      return true
+    }
+    else {
       return false
     }
   }
@@ -65,7 +78,7 @@ function App() {
 
   return (
     <div className="App">
-      <SetterContext.Provider value={{setIsLoading, login}}>
+      <SetterContext.Provider value={{registerNewUser, setIsLoading, login}}>
         <DataContext.Provider value={{currentUsername, jobs, companies}}>
           <NavBar logout={logout}/>
           <main>
