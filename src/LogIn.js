@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react"
 import { Redirect } from "react-router-dom"
-import { Alert } from "reactstrap"
+import { Alert, Button } from "reactstrap"
 import SetterContext from "./helpers/SetterContext"
+import makeChangeHandler from "./helpers/makeChangeHandler"
+import InputGroupBundle from "./InputGroupBundle"
 
 const JobList = () => {
+
 
     const {login} = useContext(SetterContext)
 
@@ -13,10 +16,7 @@ const JobList = () => {
     })
     const [errorFlag, setErrorFlag] = useState(false)
 
-    const handleChange = e => {
-        const {value,name} = e.target
-        setValues( oldValues => ({...oldValues, [name]:value}))
-    }
+    const handleChange = makeChangeHandler(setValues)
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -34,25 +34,24 @@ const JobList = () => {
             (<Alert>Your username/password not found</Alert>) :
             ""
         }
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username: </label>
-            <input
-                type="text"
-                name="username"
-                onChange={handleChange}
-                value={values.username}
-                placeholder="username"
-            /><br/>
-            <label htmlFor="password">Password: </label>
-            <input
-                type="password"
-                name="password"
-                onChange={handleChange}
-            /><br/>
-            <button onClick="submit">
-                Login
-            </button>
-        </form>
+        <InputGroupBundle
+            label="Username"
+            type="text"
+            name="username"
+            onChange={handleChange}
+            value={values.username}
+            placeholder="username"
+        /><br/>
+        <InputGroupBundle
+            label="Password"
+            type="password"
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+        /><br/>
+        <Button onClick={handleSubmit}>
+            Login
+        </Button>
     </div>)
 }
 

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { Navbar, NavItem, Nav } from "reactstrap";
+import { Navbar, NavItem, Nav, Button } from "reactstrap";
 
 import "./NavBar.css";
 import { iconURL } from "./helpers/settings";
@@ -38,9 +38,9 @@ function NavBar({logout}) {
                                 </NavLink>
                             </NavItem>
                             <NavItem >
-                                <button onClick={logout}>
+                                <Button onClick={logout}>
                                     Logout {user.username}
-                                </button>
+                                </Button>
                             </NavItem >
                         </>) :
                         (<>

@@ -31,7 +31,7 @@ const Routes = () => {
             <Redirect to={`/user/${user.username}`}/>
         </Route>
         <Route path="/user/:username">
-            <User />
+            <User/>
         </Route>
         <Route exact path="/login">
             {

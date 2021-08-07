@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Button, Input, InputGroup, InputGroupAddon } from 'reactstrap'
 
 const SearchForm = ({setResults, dataSet, searchBy, placeholder}) => {
 
@@ -24,16 +25,20 @@ const SearchForm = ({setResults, dataSet, searchBy, placeholder}) => {
         setSearchTerm("")
     }
 
-    return (<form onSubmit={handleSearch}>
-        <input
+    return (<InputGroup>
+        <Input
             type="text"
-            name="searchTextBox"
+            name="searchTerm"
             value={searchTerm}
             onChange={handleChange}
             placeholder={placeholder}
         />
-        <button onClick="submit">Search</button>
-    </form>)
+        <InputGroupAddon addonType="append">
+            <Button onClick={handleSearch}>
+                Search
+            </Button>
+        </InputGroupAddon>
+    </InputGroup>)
 }
 
 export default SearchForm

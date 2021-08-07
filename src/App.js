@@ -9,7 +9,7 @@ import LoadingScreen from './LoadingScreen'
 import useApiList from './helpers/useApiList'
 import DataContext from './helpers/DataContext'
 import SetterContext from './helpers/SetterContext'
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
   const [ jobs, updateJobs ] = useApiList("jobs")
   const [ companies, updateCompanies ] = useApiList("companies")
   const [ isLoading, setIsLoading ] = useState(true)
+  const history = useHistory()
 
   const login = async (username, password) => {
     const userData = await JoblyApi.login(username,password)
@@ -33,7 +34,7 @@ function App() {
 
   const logout = () => {
     setUser({jobs:[]})
-    return <Redirect to="/"/>
+    history.push("/")
   }
 
   const updateUser = async (userUpdate) => {
