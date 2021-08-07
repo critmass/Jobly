@@ -106,3 +106,4 @@ JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
 
 
 export default JoblyApi
+

@@ -8,12 +8,12 @@ import JobCard from "./JobCard"
 const UserPage = () => {
 
     const {username} = useParams()
-    const currentUser = useContext(DataContext)
+    const {currentUser} = useContext(DataContext)
 
-    const [user, setUser] = useState({jobs:[]})
+    const [user, setUser] = useState({applications:[]})
 
     useEffect( () => {
-        const getUser = async () => {
+        async function getUser() {
             const result = await JoblyApi.getUser(username)
             if(result.username) {
                 setUser(result)
@@ -33,7 +33,7 @@ const UserPage = () => {
             {user.username}
         </h3>
         { currentUser.username == user.username ?
-            (<Link to={`/user/${username}/update`}>
+            (<Link to={`/user/update/${username}`}>
                 <Button>
                     Update
                 </Button>
@@ -41,9 +41,11 @@ const UserPage = () => {
             ""
         }
         <div>
-            {user.jobs.map( job => {
-                return <JobCard job={job}/>
-            })}
+            {
+                user.applications.map( job => {
+                    return <JobCard job={job} />
+                })
+            }
         </div>
     </div>)
 }

@@ -14,7 +14,7 @@ import { useHistory } from 'react-router-dom';
 
 function App() {
 
-  const [ user, setUser ] = useState({jobs:[]})
+  const [ currentUser, setCurrentUser ] = useState({applications:[]})
   const [ jobs, updateJobs ] = useApiList("jobs")
   const [ companies, updateCompanies ] = useApiList("companies")
   const [ isLoading, setIsLoading ] = useState(true)
@@ -23,7 +23,7 @@ function App() {
   const login = async (username, password) => {
     const userData = await JoblyApi.login(username,password)
     if(userData.username){
-      setUser(userData)
+      setCurrentUser(userData)
       setIsLoading(true)
       return true
     }
@@ -33,13 +33,13 @@ function App() {
   }
 
   const logout = () => {
-    setUser({jobs:[]})
+    setCurrentUser({jobs:[]})
     history.push("/")
   }
 
   const updateUser = async (userUpdate) => {
-    const userData = await JoblyApi.updateUser(user.username, userUpdate)
-    if(userData.username) setUser(userData)
+    const userData = await JoblyApi.updateUser(currentUser.username, userUpdate)
+    if(userData.username) setCurrentUser(userData)
   }
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function App() {
   return (
     <div className="App">
       <SetterContext.Provider value={{setIsLoading, updateUser, login}}>
-        <DataContext.Provider value={{user, jobs, companies}}>
+        <DataContext.Provider value={{currentUser, jobs, companies}}>
           <NavBar logout={logout}/>
           <main>
             <Routes/>

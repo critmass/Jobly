@@ -31,7 +31,9 @@ const JobList = () => {
 
     return(<div>
         {errorFlag ?
-            (<Alert>Your username/password not found</Alert>) :
+            (<Alert color="danger">
+                Your username/password not found
+            </Alert>) :
             ""
         }
         <InputGroupBundle
