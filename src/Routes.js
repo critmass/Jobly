@@ -11,6 +11,7 @@ import NotFound404 from './NotFound404'
 import Registration from './Registration'
 import DataContext from './helpers/DataContext'
 import UpdateUserPage from './UpdateUserPage'
+import ProtectedRoute from './ProtectedRoute'
 
 
 const Routes = () => {
@@ -19,27 +20,27 @@ const Routes = () => {
         <Route exact path="/">
             <Home />
         </Route>
-        <Route exact path="/jobs">
+        <ProtectedRoute exact path="/jobs">
             <JobList />
-        </Route>
-        <Route exact path="/companies">
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/companies">
             <CompanyList/>
-        </Route>
-        <Route path="/companies/:handle">
+        </ProtectedRoute>
+        <ProtectedRoute path="/companies/:handle">
             <Company />
-        </Route>
-        <Route exact path="/user">
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/user">
             <Redirect to={`/user/${currentUsername}`}/>
-        </Route>
-        <Route path="/user/:username">
+        </ProtectedRoute>
+        <ProtectedRoute path="/user/:username">
             <UserPage/>
-        </Route>
-        <Route exact path="/update">
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/update">
             <Redirect to={`/update/${currentUsername}`}/>
-        </Route>
-        <Route path="/update/:username">
+        </ProtectedRoute>
+        <ProtectedRoute path="/update/:username">
             <UpdateUserPage/>
-        </Route>
+        </ProtectedRoute>
         <Route exact path="/login">
             {
                 currentUsername ?
@@ -54,6 +55,7 @@ const Routes = () => {
                     <Registration />
             }
         </Route>
+
         <Route>
             <NotFound404 />
         </Route>

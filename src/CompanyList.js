@@ -19,9 +19,14 @@ const CompanyList = () => {
             placeholder="company name"
         />
         {searchResults.map( company => {
-            return (<Link to={`/companies/${company.handle}`}>
-                <CompanyCard company={company} />
-            </Link>)
+            return (
+                <Link
+                    to={`/companies/${company.handle}`}
+                    key={company.handle}
+                >
+                    <CompanyCard company={company} />
+                </Link>
+            )
         })}
     </div>)
 }

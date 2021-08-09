@@ -8,8 +8,7 @@ const SearchForm = ({setResults, dataSet, searchBy, placeholder}) => {
 
     const handleChange = useChangeHandler(setSearchTerm)
 
-    const handleSearch = e => {
-        e.preventDefault()
+    const handleSearch = () => {
         let results
         if (searchTerm.searchTerm.trim() != "") {
             results = dataSet.filter(data => {
@@ -29,7 +28,7 @@ const SearchForm = ({setResults, dataSet, searchBy, placeholder}) => {
         <Input
             type="text"
             name="searchTerm"
-            value={searchTerm}
+            value={searchTerm.searchTerm}
             onChange={handleChange}
             placeholder={placeholder}
         />

@@ -3,11 +3,11 @@ import { Redirect, Route } from "react-router-dom"
 import DataContext from "./helpers/DataContext"
 
 
-const ProtectedRoute = ({to, exact=false}) => {
+const ProtectedRoute = ({path, exact=false, children}) => {
     const {currentUsername} = useContext(DataContext)
-    return (<Route exact={exact} to={to}>
+    return (<Route exact={exact} path={path}>
         {currentUsername ?
-            this.props.children :
+            children :
             <Redirect to="/"/>}
     </Route>)
 }

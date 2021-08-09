@@ -28,7 +28,6 @@ function App() {
       return ""
     }
   })
-  const [ user, setUser ] = useState({jobs:[]})
   const [ jobs, updateJobs ] = useApiList("jobs")
   const [ companies, updateCompanies ] = useApiList("companies")
   const [ isLoading, setIsLoading ] = useState(false)
