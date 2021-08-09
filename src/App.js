@@ -11,66 +11,69 @@ import LoadingScreen from './LoadingScreen'
 import useApiList from './helpers/useApiList'
 import DataContext from './helpers/DataContext'
 import SetterContext from './helpers/SetterContext'
-import useLocalStorageState from './useLocalStorageState';
+import useLocalStorageState from './helpers/useLocalStorageState';
 
 
 function App() {
 
-  const [ jwToken, setJwToken ] = useLocalStorageState("jwToken","")
-
-  useEffect(()=>{
-    JoblyApi.token = jwToken
-  },[jwToken])
-
-
-  const [ currentUsername, setCurrentUsername ] = useState(
-    jwt.decode(jwToken) ? jwt.decode(jwToken).username : ""
-  )
+  const [userToken, setUserToken] = useLocalStorageState("userToken", "")
+  useEffect(() => {
+    JoblyApi.token = userToken
+  },[userToken])
+  const [ currentUsername, setCurrentUsername ] = useState(() => {
+    try{
+      return jwt.decode(userToken).username
+    }
+    catch{
+      return ""
+    }
+  })
+  const [ user, setUser ] = useState({jobs:[]})
   const [ jobs, updateJobs ] = useApiList("jobs")
   const [ companies, updateCompanies ] = useApiList("companies")
-  const [ isLoading, setIsLoading ] = useState(true)
+  const [ isLoading, setIsLoading ] = useState(false)
   const history = useHistory()
 
   const login = async (username, password) => {
-    const userToken = await JoblyApi.login(username,password)
-    if(userToken){
-      setCurrentUsername(jwt.decode(userToken).username)
-      setJwToken(()=>userToken)
-      setIsLoading(true)
+    setIsLoading(true)
+    const userData = await JoblyApi.login(username,password)
+    const decodedUsername = jwt.decode(userData).username
+    if (decodedUsername){
+      setUserToken(userData)
+      setCurrentUsername(decodedUsername)
+      setIsLoading(false)
       return true
     }
     else{
-      return false
-    }
-  }
-
-  const registerNewUser = async values => {
-    const userToken = await JoblyApi.registerNewUser(values)
-    if (userToken) {
-      setCurrentUsername(jwt.decode(userToken).username)
-      setJwToken(() => userToken)
-      setIsLoading(true)
-      return true
-    }
-    else {
+      setIsLoading(false)
       return false
     }
   }
 
   const logout = () => {
     setCurrentUsername("")
-    setJwToken("")
+    setUserToken("")
+    JoblyApi.token = ''
     history.push("/")
+  }
+
+  const updateUser = async (userUpdate) => {
+    setIsLoading(true)
+    await JoblyApi.updateUser(currentUsername, userUpdate)
+    setIsLoading(false)
   }
 
   useEffect(() => {
     async function getData() {
+      setIsLoading(true)
       await updateJobs()
       await updateCompanies()
       setIsLoading(false);
     }
-    getData();
-  }, [isLoading]);
+    if(currentUsername) {
+      getData();
+    }
+  }, [currentUsername]);
 
   if (isLoading) {
     return <LoadingScreen/>
@@ -78,7 +81,7 @@ function App() {
 
   return (
     <div className="App">
-      <SetterContext.Provider value={{registerNewUser, setIsLoading, login}}>
+      <SetterContext.Provider value={{setIsLoading, updateUser, login}}>
         <DataContext.Provider value={{currentUsername, jobs, companies}}>
           <NavBar logout={logout}/>
           <main>

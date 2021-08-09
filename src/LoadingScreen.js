@@ -5,7 +5,7 @@ const LoadingScreen = () => {
     const [ t, setT ] = useState(0)
     useEffect(() =>{
         const time = setInterval(() => {
-            setT( time => time + 1 )
+            setT( currentTime => currentTime + 1 )
         }, 1200)
         return () => clearInterval(time)
     },[])

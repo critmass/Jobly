@@ -3,13 +3,14 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 
 import Home from './Home'
 import LogIn from './LogIn'
-import User from './UserPage'
+import UserPage from './UserPage'
 import JobList from './JobList'
 import Company from './Company'
 import CompanyList from './CompanyList'
 import NotFound404 from './NotFound404'
 import Registration from './Registration'
 import DataContext from './helpers/DataContext'
+import UpdateUserPage from './UpdateUserPage'
 
 
 const Routes = () => {
@@ -31,7 +32,13 @@ const Routes = () => {
             <Redirect to={`/user/${currentUsername}`}/>
         </Route>
         <Route path="/user/:username">
-            <User/>
+            <UserPage/>
+        </Route>
+        <Route exact path="/update">
+            <Redirect to={`/update/${currentUsername}`}/>
+        </Route>
+        <Route path="/update/:username">
+            <UpdateUserPage/>
         </Route>
         <Route exact path="/login">
             {

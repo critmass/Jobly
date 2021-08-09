@@ -38,7 +38,7 @@ function NavBar({logout}) {
                                 </NavLink>
                             </NavItem>
                             <NavItem >
-                                <Button onClick={logout} className="NavBar-button">
+                                <Button onClick={logout}>
                                     Logout {currentUsername}
                                 </Button>
                             </NavItem >

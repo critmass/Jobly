@@ -60,7 +60,8 @@ class JoblyApi {
 
   static async registerNewUser(data) {
     let res = await this.request( 'auth/register', data, "post" )
-    return res.token
+    this.token = res.token
+    return await this.getUser(data.username)
   }
 
   static async login( username, password ) {
@@ -71,6 +72,8 @@ class JoblyApi {
         { username, password },
         "post"
       )
+
+      this.token  = res.token
 
       return res.token
     }

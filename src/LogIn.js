@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react"
 import { Redirect } from "react-router-dom"
 import { Alert, Button } from "reactstrap"
 import SetterContext from "./helpers/SetterContext"
-import makeChangeHandler from "./helpers/makeChangeHandler"
+import useChangeHandler from "./helpers/useChangeHandler"
 import InputGroupBundle from "./InputGroupBundle"
 
 const JobList = () => {
@@ -16,7 +16,7 @@ const JobList = () => {
     })
     const [errorFlag, setErrorFlag] = useState(false)
 
-    const handleChange = makeChangeHandler(setValues)
+    const handleChange = useChangeHandler(setValues)
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -31,9 +31,7 @@ const JobList = () => {
 
     return(<div>
         {errorFlag ?
-            (<Alert color="danger">
-                Your username/password not found
-            </Alert>) :
+            (<Alert>Your username/password not found</Alert>) :
             ""
         }
         <InputGroupBundle

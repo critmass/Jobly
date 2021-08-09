@@ -1,19 +1,33 @@
-import React, { useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router"
 import JoblyApi from "./helpers/JoblyApi"
 import InputGroupBundle from "./InputGroupBundle"
+import useChangeHandler from "./helpers/useChangeHandler"
+import SetterContext from "./helpers/SetterContext"
+import { Button } from "reactstrap"
+import { Redirect } from "react-router-dom"
 
 
 const UpdateUserPage = () => {
     const {username} = useParams()
-    const [inputValues, setInputValues] = useState(() => {
-        const user = JoblyApi.getUser(username)
-        return user
-    })
-    const handleChange = makeChangeHandler(setInputValues)
-    const {}
-    const handleSubmit = () => {
+    const {updateUser} = useContext(SetterContext)
 
+
+    const [inputValues, setInputValues] = useState({})
+    useEffect(()=>{
+        const getUserData = async () => {
+            let user = await JoblyApi.getUser(username)
+            setInputValues(user)
+        }
+        getUserData()
+        if(!inputValues.username){
+            return <Redirect to="/"/>
+        }
+    },[])
+
+    const handleChange = useChangeHandler(setInputValues)
+    const handleSubmit = () => {
+        updateUser(inputValues)
     }
 
     return (<div>

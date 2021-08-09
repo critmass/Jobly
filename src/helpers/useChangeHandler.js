@@ -1,4 +1,4 @@
-const makeChangeHandler = setValues => {
+const useChangeHandler = setValues => {
 
     const handleChange = e => {
         const { value, name } = e.target
@@ -8,4 +8,4 @@ const makeChangeHandler = setValues => {
     return handleChange
 }
 
-export default makeChangeHandler
+export default useChangeHandler

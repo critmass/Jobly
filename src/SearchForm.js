@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
+import useChangeHandler from './helpers/useChangeHandler'
 import { Button, Input, InputGroup, InputGroupAddon } from 'reactstrap'
 
 const SearchForm = ({setResults, dataSet, searchBy, placeholder}) => {
 
-    const [searchTerm, setSearchTerm] = useState("")
+    const [searchTerm, setSearchTerm] = useState({searchTerm:""})
 
-    const handleChange = e => {
-        const { value } = e.target
-        setSearchTerm(value)
-    }
+    const handleChange = useChangeHandler(setSearchTerm)
 
     const handleSearch = e => {
         e.preventDefault()
         let results
-        if (searchTerm.trim() != "") {
+        if (searchTerm.searchTerm.trim() != "") {
             results = dataSet.filter(data => {
-                return data[searchBy].includes(searchTerm.trim())
+                return data[searchBy].includes(
+                    searchTerm.searchTerm.trim()
+                )
             })
         }
         else {
