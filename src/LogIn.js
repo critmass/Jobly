@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react"
-import { Redirect } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { Alert, Button } from "reactstrap"
 import SetterContext from "./helpers/SetterContext"
 import useChangeHandler from "./helpers/useChangeHandler"
@@ -9,6 +9,7 @@ const JobList = () => {
 
 
     const {login} = useContext(SetterContext)
+    const history = useHistory()
 
     const [values, setValues] = useState({
         username:"",
@@ -18,11 +19,10 @@ const JobList = () => {
 
     const handleChange = useChangeHandler(setValues)
 
-    const handleSubmit = e => {
-        e.preventDefault()
+    const handleSubmit = () => {
         const loginSuccess = login(values.username, values.password)
         if(loginSuccess){
-            return <Redirect to="/"/>
+            history.push("/")
         }
         else{
             setErrorFlag(true)

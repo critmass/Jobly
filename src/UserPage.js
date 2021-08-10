@@ -32,12 +32,19 @@ const UserPage = () => {
         <h3 className="display-4">
             {user.username}
         </h3>
+        <ul>
+            <li>
+                {user.email}
+            </li>
+        </ul>
         { currentUsername == user.username ?
-            (<Link to={`/user/${username}/update`}>
-                <Button>
-                    Update
-                </Button>
-            </Link>) :
+            (<>
+                <Link to={`/update/${username}`}>
+                    <Button>
+                        Update
+                    </Button>
+                </Link>
+            </>) :
             ""
         }
         <div>

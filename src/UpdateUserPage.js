@@ -17,7 +17,11 @@ const UpdateUserPage = () => {
     useEffect(()=>{
         const getUserData = async () => {
             let user = await JoblyApi.getUser(username)
-            setInputValues(user)
+            setInputValues({
+                firstName:user.firstName,
+                lastName:user.lastName,
+                email:user.email
+            })
         }
         getUserData()
         if(!inputValues.username){
@@ -26,17 +30,11 @@ const UpdateUserPage = () => {
     },[])
 
     const handleChange = useChangeHandler(setInputValues)
-    const handleSubmit = () => {
-        updateUser(inputValues)
+    const handleSubmit = async () => {
+        await updateUser(inputValues)
     }
 
     return (<div>
-        <InputGroupBundle
-            label="Password"
-            name="password"
-            value={inputValues.password}
-            onChange={handleChange}
-        /><br />
         <InputGroupBundle
             label="First Name"
             name="firstName"

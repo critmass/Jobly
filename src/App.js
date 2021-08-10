@@ -35,11 +35,11 @@ function App() {
 
   const login = async (username, password) => {
     setIsLoading(true)
-    const userData = await JoblyApi.login(username,password)
-    const decodedUsername = jwt.decode(userData).username
-    if (decodedUsername){
-      setUserToken(userData)
-      setCurrentUsername(decodedUsername)
+    const newUserToken = await JoblyApi.login(username,password)
+    const decodedUserToken = jwt.decode(newUserToken)
+    if (decodedUserToken){
+      setUserToken(newUserToken)
+      setCurrentUsername(decodedUserToken.username)
       setIsLoading(false)
       return true
     }
@@ -52,14 +52,25 @@ function App() {
   const logout = () => {
     setCurrentUsername("")
     setUserToken("")
-    JoblyApi.token = ''
     history.push("/")
   }
 
-  const updateUser = async (userUpdate) => {
+  const updateUser = async userUpdate => {
     setIsLoading(true)
     await JoblyApi.updateUser(currentUsername, userUpdate)
     setIsLoading(false)
+  }
+
+  const registerNewUser = async newUser => {
+    setIsLoading(true)
+    const newToken = await JoblyApi.registerNewUser(newUser)
+    const newTokenDecoded = jwt.decode(newToken)
+    if(newTokenDecoded.username) {
+      setCurrentUsername(newTokenDecoded.username)
+      setUserToken(newToken)
+    }
+    setIsLoading(false)
+    history.push("/")
   }
 
   useEffect(() => {
@@ -80,7 +91,7 @@ function App() {
 
   return (
     <div className="App">
-      <SetterContext.Provider value={{setIsLoading, updateUser, login}}>
+      <SetterContext.Provider value={{setIsLoading, updateUser, login, registerNewUser}}>
         <DataContext.Provider value={{currentUsername, jobs, companies}}>
           <NavBar logout={logout}/>
           <main>

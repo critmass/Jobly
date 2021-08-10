@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 import { useHistory } from "react-router-dom"
-import { Alert, Button } from "reactstrap"
+import { Button } from "reactstrap"
 import useChangeHandler from "./helpers/useChangeHandler"
 import SetterContext from "./helpers/SetterContext"
 import InputGroupBundle from "./InputGroupBundle"
@@ -20,8 +20,7 @@ const Registration = () => {
     const {registerNewUser} = useContext(SetterContext)
 
     const handleSubmit = async () => {
-        registerNewUser(inputValues)
-        history.push("/")
+        await registerNewUser(inputValues)
     }
 
     return (<div>
