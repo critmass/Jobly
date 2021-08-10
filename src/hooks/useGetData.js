@@ -2,7 +2,7 @@ import JoblyApi from "../helpers/JoblyApi"
 
 
 const useGetData =
-    ({setIsLoading, updateCompanies, updateJobs}) => {
+    ({setIsLoading, updateCompanies, updateJobs, setJobsAppliedTo, currentUsername}) => {
         async function getData() {
             setIsLoading(true)
             await updateJobs()
@@ -11,7 +11,7 @@ const useGetData =
             setJobsAppliedTo(user.applications.map(job => job.id))
             setIsLoading(false);
         }
-        return getData()
+        return getData
     }
 
 export default useGetData

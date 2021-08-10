@@ -1,7 +1,7 @@
 import JoblyApi from "../helpers/JoblyApi"
 
 
-const useApplyToJob = ({setJobsAppliedTo}) => {
+const useApplyToJob = ({setJobsAppliedTo, currentUsername}) => {
     const applyToJob = jobId => {
         if (
             JoblyApi.applyToJob(currentUsername, jobId)

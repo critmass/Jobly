@@ -16,7 +16,6 @@ import useLogout from './hooks/useLogout';
 import useUpdateUser from './hooks/useUpdateUser';
 import useRegisterNewUser from './hooks/useRegisterNewUser';
 import useApplyToJob from './hooks/useApplyToJob';
-import useGetData from './hooks/useGetData';
 
 
 function App() {
@@ -45,10 +44,19 @@ function App() {
   const logout = useLogout(setters)
   const updateUser = useUpdateUser({...setters, currentUsername})
   const registerNewUser = useRegisterNewUser(setters)
-  const applyToJob = useApplyToJob(setters)
+  const applyToJob = useApplyToJob({ ...setters, currentUsername })
 
   useEffect(() => {
-    const getData = useGetData({...setters, updateCompanies, updateJobs})
+    async function getData() {
+      setIsLoading(true)
+      await updateJobs()
+      await updateCompanies()
+      const user = await JoblyApi.getUser(currentUsername)
+      setJobsAppliedTo(user.applications.map( job => {
+        return job.id
+      }))
+      setIsLoading(false);
+    }
     if(currentUsername) {
       getData();
     }
