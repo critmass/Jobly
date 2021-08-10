@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import jwt from "jsonwebtoken"
 
 import './App.css';
@@ -8,10 +7,16 @@ import Routes from './Routes'
 import NavBar from './NavBar'
 import JoblyApi from './helpers/JoblyApi'
 import LoadingScreen from './LoadingScreen'
-import useApiList from './helpers/useApiList'
-import DataContext from './helpers/DataContext'
-import SetterContext from './helpers/SetterContext'
-import useLocalStorageState from './helpers/useLocalStorageState';
+import useApiList from './hooks/useApiList';
+import DataContext from './context/DataContext'
+import SetterContext from './context/SetterContext'
+import useLocalStorageState from './hooks/useLocalStorageState';
+import useLogin from './hooks/useLogin';
+import useLogout from './hooks/useLogout';
+import useUpdateUser from './hooks/useUpdateUser';
+import useRegisterNewUser from './hooks/useRegisterNewUser';
+import useApplyToJob from './hooks/useApplyToJob';
+import useGetData from './hooks/useGetData';
 
 
 function App() {
@@ -20,6 +25,7 @@ function App() {
   useEffect(() => {
     JoblyApi.token = userToken
   },[userToken])
+
   const [ currentUsername, setCurrentUsername ] = useState(() => {
     try{
       return jwt.decode(userToken).username
@@ -30,56 +36,19 @@ function App() {
   })
   const [ jobs, updateJobs ] = useApiList("jobs")
   const [ companies, updateCompanies ] = useApiList("companies")
+  const [ jobsAppliedTo, setJobsAppliedTo ] = useState([])
   const [ isLoading, setIsLoading ] = useState(false)
-  const history = useHistory()
 
-  const login = async (username, password) => {
-    setIsLoading(true)
-    const newUserToken = await JoblyApi.login(username,password)
-    const decodedUserToken = jwt.decode(newUserToken)
-    if (decodedUserToken){
-      setUserToken(newUserToken)
-      setCurrentUsername(decodedUserToken.username)
-      setIsLoading(false)
-      return true
-    }
-    else{
-      setIsLoading(false)
-      return false
-    }
-  }
+  const setters = {setUserToken, setCurrentUsername, setJobsAppliedTo, setIsLoading}
 
-  const logout = () => {
-    setCurrentUsername("")
-    setUserToken("")
-    history.push("/")
-  }
-
-  const updateUser = async userUpdate => {
-    setIsLoading(true)
-    await JoblyApi.updateUser(currentUsername, userUpdate)
-    setIsLoading(false)
-  }
-
-  const registerNewUser = async newUser => {
-    setIsLoading(true)
-    const newToken = await JoblyApi.registerNewUser(newUser)
-    const newTokenDecoded = jwt.decode(newToken)
-    if(newTokenDecoded.username) {
-      setCurrentUsername(newTokenDecoded.username)
-      setUserToken(newToken)
-    }
-    setIsLoading(false)
-    history.push("/")
-  }
+  const login = useLogin(setters)
+  const logout = useLogout(setters)
+  const updateUser = useUpdateUser({...setters, currentUsername})
+  const registerNewUser = useRegisterNewUser(setters)
+  const applyToJob = useApplyToJob(setters)
 
   useEffect(() => {
-    async function getData() {
-      setIsLoading(true)
-      await updateJobs()
-      await updateCompanies()
-      setIsLoading(false);
-    }
+    const getData = useGetData({...setters, updateCompanies, updateJobs})
     if(currentUsername) {
       getData();
     }
@@ -91,8 +60,23 @@ function App() {
 
   return (
     <div className="App">
-      <SetterContext.Provider value={{setIsLoading, updateUser, login, registerNewUser}}>
-        <DataContext.Provider value={{currentUsername, jobs, companies}}>
+      <SetterContext.Provider
+        value={{
+          applyToJob,
+          setIsLoading,
+          updateUser,
+          login,
+          registerNewUser
+        }}
+      >
+        <DataContext.Provider
+          value={{
+            jobsAppliedTo,
+            currentUsername,
+            jobs,
+            companies
+          }}
+        >
           <NavBar logout={logout}/>
           <main>
             <Routes/>

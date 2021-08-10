@@ -10,8 +10,8 @@ import CompanyList from './CompanyList'
 import NotFound404 from './NotFound404'
 import Registration from './Registration'
 import UpdateUserPage from './UpdateUserPage'
-import ProtectedRoute from './ProtectedRoute'
-import DataContext from './helpers/DataContext'
+import ProtectedRoute from './helpers/ProtectedRoute'
+import DataContext from './context/DataContext'
 
 const Routes = () => {
     const {currentUsername} = useContext(DataContext)

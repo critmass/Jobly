@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { Redirect, Route } from "react-router-dom"
-import DataContext from "./helpers/DataContext"
+import DataContext from "../context/DataContext"
 
 
 const ProtectedRoute = ({path, exact=false, children}) => {

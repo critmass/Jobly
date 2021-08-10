@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react"
 import { useHistory } from "react-router-dom"
 import { Button } from "reactstrap"
-import useChangeHandler from "./helpers/useChangeHandler"
-import SetterContext from "./helpers/SetterContext"
-import InputGroupBundle from "./InputGroupBundle"
+import useChangeHandler from "./hooks/useChangeHandler"
+import SetterContext from "./context/SetterContext"
+import InputGroupBundle from "./helpers/InputGroupBundle"
 
 const Registration = () => {
 

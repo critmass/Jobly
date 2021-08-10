@@ -4,7 +4,7 @@ import { Navbar, NavItem, Nav, Button } from "reactstrap";
 
 import "./NavBar.css";
 import { iconURL } from "./helpers/settings";
-import DataContext from "./helpers/DataContext";
+import DataContext from "./context/DataContext";
 
 
 function NavBar({logout}) {

@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import DataContext from "./helpers/DataContext"
+import DataContext from "./context/DataContext"
 
 const Home = () => {
     const {currentUsername} = useContext(DataContext)

@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react"
 import { Link, Redirect, useParams } from "react-router-dom"
 import { Button } from "reactstrap"
-import DataContext from "./helpers/DataContext"
+import DataContext from "./context/DataContext"
 import JoblyApi from "./helpers/JoblyApi"
 import JobCard from "./JobCard"
 

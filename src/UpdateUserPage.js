@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router"
 import JoblyApi from "./helpers/JoblyApi"
-import InputGroupBundle from "./InputGroupBundle"
-import useChangeHandler from "./helpers/useChangeHandler"
-import SetterContext from "./helpers/SetterContext"
+import InputGroupBundle from "./helpers/InputGroupBundle"
+import useChangeHandler from "./hooks/useChangeHandler"
+import SetterContext from "./context/SetterContext"
 import { Button } from "reactstrap"
 import { Redirect } from "react-router-dom"
 

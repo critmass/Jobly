@@ -1,8 +1,27 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Link } from "react-router-dom"
-import { Card, CardBody, CardSubtitle, CardText, CardTitle } from "reactstrap"
+import {
+    Button,
+    Card,
+    CardBody,
+    CardSubtitle,
+    CardText,
+    CardTitle
+} from "reactstrap"
+import DataContext from "./context/DataContext"
+import SetterContext from "./context/SetterContext"
 
 const JobCard = ({job}) => {
+
+    const {jobsAppliedTo} = useContext(DataContext)
+    const {applyToJob} = useContext(SetterContext)
+
+    const isAppliedTo = jobsAppliedTo.includes(job.id)
+
+    const handleClick = () => {
+        applyToJob(job.id)
+    }
+
     return (<Card>
         <CardBody>
             <CardTitle>
@@ -27,7 +46,12 @@ const JobCard = ({job}) => {
                             </ul>
                         </div>
                         <div className="col-3">
-                            <button>Apply</button>
+                            {isAppliedTo ?
+                                <Button>Applied</Button>:
+                                <Button onClick={handleClick}>
+                                    Apply
+                                </Button>
+                            }
                         </div>
                     </div>
                 </div>

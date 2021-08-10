@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
-import DataContext from "./helpers/DataContext"
+import DataContext from "./context/DataContext"
 import JobCard from "./JobCard"
-import SearchForm from "./SearchForm"
+import SearchForm from "./helpers/SearchForm"
 
 const JobList = () => {
     const {jobs} = useContext(DataContext)
@@ -16,7 +16,7 @@ const JobList = () => {
             placeholder="Job Names"
         />
         {searchedJobs.map( job => {
-            return (<JobCard job={job}/>)
+            return (<JobCard job={job} key={job.id}/>)
         })}
     </div>
 }

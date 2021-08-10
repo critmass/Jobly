@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import useChangeHandler from './helpers/useChangeHandler'
+import useChangeHandler from '../hooks/useChangeHandler'
 import { Button, Input, InputGroup, InputGroupAddon } from 'reactstrap'
 
 const SearchForm = ({setResults, dataSet, searchBy, placeholder}) => {
