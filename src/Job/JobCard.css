@@ -1,0 +1,28 @@
+.JobCard-CardSubtitle {
+    text-align: center;
+    align-self: center;
+}
+
+.JobCard-CardSubtitle a {
+    text-decoration: none;
+    color: black;
+}
+
+.JobCard-CardSubtitle a:hover {
+    text-decoration: none;
+    color: darkgrey;
+}
+
+.JobCard-CardText {
+    text-align: center;
+}
+
+.JobCard-CardTitle {
+    text-align: center;
+    align-self: center;
+}
+
+.JobCard {
+    text-align: center;
+    align-items: center;
+}

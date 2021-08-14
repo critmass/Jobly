@@ -52,7 +52,7 @@ function App() {
       await updateJobs()
       await updateCompanies()
       const user = await JoblyApi.getUser(currentUsername)
-      console.log(user)
+      console.log(jobs)
       setJobsAppliedTo(user.jobs.map( job => {
         return job.id
       }))
