@@ -10,7 +10,7 @@ const UserPage = () => {
     const {username} = useParams()
     const {currentUsername} = useContext(DataContext)
 
-    const [user, setUser] = useState({applications:[]})
+    const [user, setUser] = useState({jobs:[]})
 
     useEffect( () => {
         const getUser = async () => {
@@ -25,34 +25,36 @@ const UserPage = () => {
         getUser()
     },[])
 
-    return (<div>
-        <h2 className="display-2">
-            {`${user.firstName} ${user.lastName}`}
-        </h2>
-        <h3 className="display-4">
-            {user.username}
-        </h3>
-        <ul>
-            <li>
-                {user.email}
-            </li>
-        </ul>
-        { currentUsername == user.username ?
-            (<>
-                <Link to={`/update/${username}`}>
-                    <Button>
-                        Update
-                    </Button>
-                </Link>
-            </>) :
-            ""
-        }
+    return (
         <div>
-            {user.applications.map( job => {
-                return <JobCard job={job}/>
-            })}
+            <h2 className="display-2">
+                {`${user.firstName} ${user.lastName}`}
+            </h2>
+            <h3 className="display-4">
+                {user.username}
+            </h3>
+            <ul>
+                <li>
+                    {user.email}
+                </li>
+            </ul>
+            { currentUsername == user.username ?
+                (<>
+                    <Link to={`/update/${username}`}>
+                        <Button>
+                            Update
+                        </Button>
+                    </Link>
+                </>) :
+                ""
+            }
+            <div>
+                {user.jobs.map( job => {
+                    return <JobCard job={job}/>
+                })}
+            </div>
         </div>
-    </div>)
+    )
 }
 
 export default UserPage

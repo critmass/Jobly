@@ -26,25 +26,15 @@ nav {
   color: #f0f2f5;
 }
 
+.NavBar-link:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .navbar-brand.active {
   border-bottom: none;
 }
 
-.NavBar-link:hover {
-  font-weight: bold;
-}
-
 .NavBar-img {
   height: 35px;
-}
-
-.NavBar-button {
-  background-color: red;
-  border-color: red;
-}
-
-.NavBar-button:hover {
-  background-color: red;
-  border-color: red;
-  font-weight: bold;
 }

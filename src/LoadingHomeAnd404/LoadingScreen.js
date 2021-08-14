@@ -9,7 +9,15 @@ const LoadingScreen = () => {
         }, 1200)
         return () => clearInterval(time)
     },[])
-    return <div className="LoadingScreen">Loading{".".repeat(1+t%3)}</div>
+    return (
+        <div className="LoadingScreen-container container">
+            <div className="row align-items-center">
+                <div className="text-center col display-1">
+                    Loading{".".repeat(1+t%3)}
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export default LoadingScreen
