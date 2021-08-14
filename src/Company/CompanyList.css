@@ -1,0 +1,12 @@
+.CompanyList {
+    width: 90vw;
+}
+
+a.CompanyList-Link {
+    text-decoration: none;
+    color: #000;
+}
+
+.CompanyList-Link :hover {
+    background-color:gainsboro ;
+}
