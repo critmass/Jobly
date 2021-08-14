@@ -1,9 +1,9 @@
 import React, { useContext } from "react"
 import { useParams } from "react-router-dom"
 
-import JobCard from "./JobCard"
+import JobCard from "../Job/JobCard"
 import CompanyCard from "./CompanyCard"
-import DataContext from "./context/DataContext"
+import DataContext from "../context/DataContext"
 
 const Company = () => {
     const {handle} = useParams()

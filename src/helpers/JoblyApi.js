@@ -80,7 +80,7 @@ class JoblyApi {
 
   static async updateUser(username, userUpdate) {
     const result = await this.request(`users/${username}`, {...userUpdate}, "patch")
-    return result
+    return result.user
   }
 
   static async deleteUser(username) {

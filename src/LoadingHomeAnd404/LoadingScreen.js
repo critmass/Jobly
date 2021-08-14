@@ -9,7 +9,7 @@ const LoadingScreen = () => {
         }, 1200)
         return () => clearInterval(time)
     },[])
-    return <p>Loading{".".repeat(1+t%3)}</p>
+    return <div className="LoadingScreen">Loading{".".repeat(1+t%3)}</div>
 }
 
 export default LoadingScreen

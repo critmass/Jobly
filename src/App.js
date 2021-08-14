@@ -3,10 +3,10 @@ import jwt from "jsonwebtoken"
 
 import './App.css';
 
-import Routes from './Routes'
-import NavBar from './NavBar'
+import Routes from './RoutesAndNavigation/Routes'
+import NavBar from './RoutesAndNavigation/NavBar'
 import JoblyApi from './helpers/JoblyApi'
-import LoadingScreen from './LoadingScreen'
+import LoadingScreen from './LoadingHomeAnd404/LoadingScreen'
 import useApiList from './hooks/useApiList';
 import DataContext from './context/DataContext'
 import SetterContext from './context/SetterContext'
@@ -52,7 +52,8 @@ function App() {
       await updateJobs()
       await updateCompanies()
       const user = await JoblyApi.getUser(currentUsername)
-      setJobsAppliedTo(user.applications.map( job => {
+      console.log(user)
+      setJobsAppliedTo(user.jobs.map( job => {
         return job.id
       }))
       setIsLoading(false);

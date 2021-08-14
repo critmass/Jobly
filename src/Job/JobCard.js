@@ -8,8 +8,8 @@ import {
     CardText,
     CardTitle
 } from "reactstrap"
-import DataContext from "./context/DataContext"
-import SetterContext from "./context/SetterContext"
+import DataContext from "../context/DataContext"
+import SetterContext from "../context/SetterContext"
 
 const JobCard = ({job}) => {
 
@@ -34,7 +34,7 @@ const JobCard = ({job}) => {
             </CardSubtitle>
             <CardText>
                 <div className="container">
-                    <div class="row justify-content-between">
+                    <div className="row justify-content-between">
                         <div className="col-3">
                             <ul>
                                 <li>

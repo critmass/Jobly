@@ -1,17 +1,17 @@
 import React, { useContext } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-import Home from './Home'
-import LogIn from './LogIn'
-import JobList from './JobList'
-import Company from './Company'
-import UserPage from './UserPage'
-import CompanyList from './CompanyList'
-import NotFound404 from './NotFound404'
-import Registration from './Registration'
-import UpdateUserPage from './UpdateUserPage'
-import ProtectedRoute from './helpers/ProtectedRoute'
-import DataContext from './context/DataContext'
+import Home from '../LoadingHomeAnd404/Home'
+import LogIn from '../Authorization/LogIn'
+import JobList from '../Job/JobList'
+import Company from '../Company/Company'
+import UserPage from '../User/UserPage'
+import CompanyList from '../Company/CompanyList'
+import NotFound404 from '../LoadingHomeAnd404/NotFound404'
+import Registration from '../Authorization/Registration'
+import UpdateUserPage from '../User/UpdateUserPage'
+import ProtectedRoute from './ProtectedRoute'
+import DataContext from '../context/DataContext'
 
 const Routes = () => {
     const {currentUsername} = useContext(DataContext)

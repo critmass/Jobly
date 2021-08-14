@@ -10,11 +10,10 @@ const SearchForm = ({setResults, dataSet, searchBy, placeholder}) => {
 
     const handleSearch = () => {
         let results
-        if (searchTerm.searchTerm.trim() != "") {
+        const trimmedSearchTerm  = searchTerm.searchTerm.trim()
+        if (trimmedSearchTerm != "") {
             results = dataSet.filter(data => {
-                return data[searchBy].includes(
-                    searchTerm.searchTerm.trim()
-                )
+                return data[searchBy].includes( trimmedSearchTerm )
             })
         }
         else {

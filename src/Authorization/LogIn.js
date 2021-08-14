@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react"
 import { useHistory } from "react-router-dom"
 import { Alert, Button } from "reactstrap"
-import SetterContext from "./context/SetterContext"
-import useChangeHandler from "./hooks/useChangeHandler"
-import InputGroupBundle from "./helpers/InputGroupBundle"
+import SetterContext from "../context/SetterContext"
+import useChangeHandler from "../hooks/useChangeHandler"
+import InputGroupBundle from "../helpers/InputGroupBundle"
 
 const JobList = () => {
 

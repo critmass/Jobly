@@ -1,9 +1,10 @@
+import jwt from "jsonwebtoken"
 import JoblyApi from "./JoblyApi";
-
-let newUserToken;
 
 
 describe("Testing JoblyApi", () => {
+
+    let newUserToken;
 
     it("should be able to get a list of companies from the backend", async () => {
         const res = await JoblyApi.request("companies")
@@ -16,7 +17,7 @@ describe("Testing JoblyApi", () => {
     })
 
     it("should be able to register", async () => {
-        const user = await JoblyApi.registerNewUser({
+        newUserToken = await JoblyApi.registerNewUser({
             username:"newUser",
             firstName:"First",
             lastName:"Last",
@@ -24,25 +25,14 @@ describe("Testing JoblyApi", () => {
             password:"password"
         })
 
-        newUserToken = JoblyApi.token
-
-        expect(user.username).toBe("newUser")
-        expect(user.firstName).toEqual("First")
-        expect(user.lastName).toEqual("Last")
-        expect(user.email).toEqual("email@email.com")
-        expect(user.isAdmin).toBeFalsy()
-
-
+        expect(jwt.decode(newUserToken).username).toBe("newUser")
+        expect(jwt.decode(newUserToken).isAdmin).toBe(false)
     })
 
     it("should be able to login", async () => {
-        const user = await JoblyApi.login("testuser", "password")
+        const userToken = await JoblyApi.login("testuser", "password")
 
-        expect(user.username).toBe("testuser")
-        expect(user.firstName).toEqual("Test")
-        expect(user.lastName).toEqual("User")
-        expect(user.email).toEqual("joel@joelburton.com")
-        expect(user.isAdmin).toBeFalsy()
+        expect(jwt.decode(userToken).username).toBe("testuser")
 
     })
 

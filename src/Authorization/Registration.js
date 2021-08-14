@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react"
-import { useHistory } from "react-router-dom"
 import { Button } from "reactstrap"
-import useChangeHandler from "./hooks/useChangeHandler"
-import SetterContext from "./context/SetterContext"
-import InputGroupBundle from "./helpers/InputGroupBundle"
+import useChangeHandler from "../hooks/useChangeHandler"
+import SetterContext from "../context/SetterContext"
+import InputGroupBundle from "../helpers/InputGroupBundle"
 
 const Registration = () => {
 
@@ -14,7 +13,6 @@ const Registration = () => {
         lastName:"",
         email:""
     })
-    const history = useHistory()
 
     const handleChange = useChangeHandler(setInputValues)
     const {registerNewUser} = useContext(SetterContext)

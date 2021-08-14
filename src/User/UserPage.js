@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from "react"
 import { Link, Redirect, useParams } from "react-router-dom"
 import { Button } from "reactstrap"
-import DataContext from "./context/DataContext"
-import JoblyApi from "./helpers/JoblyApi"
-import JobCard from "./JobCard"
+import DataContext from "../context/DataContext"
+import JoblyApi from "../helpers/JoblyApi"
+import JobCard from "../Job/JobCard"
 
 const UserPage = () => {
 

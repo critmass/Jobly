@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
-import DataContext from "./context/DataContext"
+import DataContext from "../context/DataContext"
 import JobCard from "./JobCard"
-import SearchForm from "./helpers/SearchForm"
+import SearchForm from "../helpers/SearchForm"
 
 const JobList = () => {
     const {jobs} = useContext(DataContext)

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 
-import DataContext from "./context/DataContext"
-import SearchForm from "./helpers/SearchForm"
+import DataContext from "../context/DataContext"
+import SearchForm from "../helpers/SearchForm"
 import CompanyCard from "./CompanyCard"
 import { Link } from "react-router-dom"
 

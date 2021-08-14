@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 import { Navbar, NavItem, Nav, Button } from "reactstrap";
 
 import "./NavBar.css";
-import { iconURL } from "./helpers/settings";
-import DataContext from "./context/DataContext";
+import { iconURL } from "../helpers/settings";
+import DataContext from "../context/DataContext";
 
 
 function NavBar({logout}) {
