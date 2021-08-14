@@ -64,7 +64,9 @@ function App() {
   }, [currentUsername]);
 
   if (isLoading) {
-    return <LoadingScreen/>
+    return (<main>
+        <LoadingScreen/>
+      </main>)
   }
 
   return (

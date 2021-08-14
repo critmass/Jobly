@@ -1,0 +1,15 @@
+.UserPage {
+    width: 100vw;
+    align-items: center;
+    text-align: center;
+}
+
+.UserPage-info-list {
+    list-style-type: none;
+}
+
+.UserPage-jobs {
+    width: 85vw;
+    align-self: center;
+    align-items: center;
+}

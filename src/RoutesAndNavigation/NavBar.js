@@ -33,7 +33,7 @@ function NavBar({logout}) {
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink exact to="/user" className="NavBar-link m-2">
+                                <NavLink exact to={`/user/${currentUsername}`} className="NavBar-link m-2">
                                     Profile
                                 </NavLink>
                             </NavItem>
